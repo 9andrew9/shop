@@ -1,0 +1,101 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+    <meta  http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ title }} - Shop job</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'shop/css/bootstrap.css' %}" />
+{% comment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'shop/css/bootstrap.min.css' %}" />
+{% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static "shop/css/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "shop/css/jqsimplemenu.css" %}">
+    <script src="{% static 'shop/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'shop/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'shop/scripts/respond.js' %}"></script>
+    <style>
+
+    </style>
+
+    {% block head %}
+
+     {% endblock %}
+
+<body>
+
+   <div class="navbar navbar-inverse ">
+            <div class="logo">
+                <img class="logo" src="{% static "/shop/image/logoEuroplan.png" %}"/>
+            </div>
+       <div>
+            <a class="auth" href="/admin/">Личный кабинет</a>
+       </div>
+        <div class="container">
+
+{% comment %}
+     <div>
+         <ul  class="nav navbar-nav ">
+      <li class="dropdown">
+        <a class="dropdown-toggle pull-right" data-toggle="dropdown" data-target="#"  href="{% url 'shop:ProductList' %}">Меню <b class="caret"></b></a>
+        <ul id="menu1" class="dropdown-menu">
+          <li><a href="#">Действие</a></li>
+          <li><a href="#">Другое действие</a></li>
+          <li><a href="#">Ссылка</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Отделенная ссылка</a></li>
+        </ul>
+      </li>
+    </ul></div>
+
+{% endcomment %}
+
+
+
+            <div>
+
+
+                <ul class="nav navbar-nav">
+
+                    <li><a href="{% url 'shop:ProductList' %}">Твои товары</a></li>
+                    <li><a href="{% url 'Contacts' %}">Контакты</a></li>
+                    <li><a href="/admin/">Авторизация</a></li>
+                    <li>
+
+                    {% with total_items=cart|length %}
+                    {% if cart|length > 0 %}
+
+                        <li><a href="{% url "cart:CartDetail" %}">
+                        В корзине {{ total_items }} тов. {{ cart.get_total_price }} руб.
+                        </a></li>
+            {% else %}
+              <li><a href="{% url "cart:CartDetail" %}"> Корзина</a></li>
+            {% endif %}
+          {% endwith %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+
+
+
+    <div class="container body-content">
+        <hr/>
+        <footer>
+            <p>&copy; {{ year }} - Shop by Andrew Skvortsov</p>
+        </footer>
+    </div>
+
+{% block scripts %}
+
+{% endblock %}
+
+</body>
+</html>

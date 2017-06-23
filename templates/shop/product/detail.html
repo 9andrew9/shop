@@ -1,0 +1,31 @@
+{% extends "shop/base2.html" %}
+{% csrf_token %}
+{% load static %}
+
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+     <div class="product-detail">
+    <div class="col-sm-4">
+      <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.jpg"%}{% endif %}" class="img-responsive">
+    </div>
+    <div class="col-sm-8">
+        {% csrf_token %}
+
+      <h1>{{ product.name }}</h1>
+      <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+      <p class="price">{{ product.price }} руб.</p>
+      <form action="{% url "cart:CartAdd" product.id %}" method="post"  class="add">
+        {{ cart_product_form }}
+        {% csrf_token %}
+        <input type="submit" value="Добавить в корзину">{% csrf_token %}
+      </form>
+      <span>{{ product.description | linebreaks}}</span>
+            <h5>На Складе {{ product.stock }} шт. </h5>
+            <h5>Город {{ product.city }}</h5>
+    </div>
+  </div>
+{% endblock %}

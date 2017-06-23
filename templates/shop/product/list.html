@@ -1,0 +1,58 @@
+{% extends 'shop/base2.html' %}
+
+{% load static %}
+
+{% block title %}
+
+  {% if category %} {{ category.name }} {% else %} Страница товаров {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+  <div id="sidebar" class="col-sm-3">
+    <h3>Города</h3>
+
+
+
+    <ul>
+      <li {% if not category %} class="selected" {% endif %}>
+        <a href="{% url "shop:ProductList" %}">Все</a>
+      </li>
+      {% for cat in categories %}
+
+        <li {% if category.slug == cat.slug %} class="selected" {% endif %}>
+          <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+
+        </li>
+      {% endfor %}
+    </ul>
+
+
+
+  </div>
+  <div id="main" class="product_list col-sm-9">
+    <h1>{% if category %}{{ category.name }}
+        {% else %}Товары{% endif %}</h1>
+  <h10> *изображения товара, представленного на сайте, являются фото-образцами. Реальный вид товара может отличаться!</h10>
+
+
+    <div class="items row">
+      {% for product in products %}
+        <div class="item col-sm-4">
+          <a href="{{ product.get_absolute_url }}">
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.jpg"%}{% endif %}" class="img-responsive">
+          </a>
+          <a class="container" href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+            <h5>Город {{ product.city }}</h5>
+          <h5> Стоимость {{ product.price }} руб. </h5>
+            <h10> {{ product.stock }} шт. На Складе</h10>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'shop/base2.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+ {% for contact in contacts %}
+<div class="product-detail">
+     <div class="container">
+        <h3> {{ contact.title }}</h3>
+        <span>{{ contact.contact | linebreaks }}</span>
+        <a>
+        <img class="img-rounded" src="{{ contact.imagecontact.url}}" >
+        </a>
+ {% endfor %}
+
+     </div>
+</div>
+{% endblock %}
