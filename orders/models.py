@@ -5,6 +5,7 @@ from django.db import models
 
 from django.db import models
 from shop.models import Product
+from shop.models import City
 
 
 class Order(models.Model):
@@ -38,6 +39,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, related_name='order_items')
     price = models.DecimalField(verbose_name='Цена', max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(verbose_name='Количество', default=1)
+
 
     def __str__(self):
         return '{}'.format(self.id)
